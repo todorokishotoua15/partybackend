@@ -3,6 +3,18 @@ var router = express.Router();
 const axios = require('axios');
 User = require('../models/user');
 
+function sendmessage(mes, mobile) {
+	var phone_number = mes;
+	axios.post('https://whatapi.onrender.com/chat/sendmessage/' + phone_number, {
+	message: mes,
+	}).then(function(res1) {
+		console.log(res1);
+		flag  = 1;
+	}).catch(function(err) {
+		console.log(err);
+	})
+}
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	User.find({}).then((users) => {
@@ -24,6 +36,7 @@ router.post('/', function(req,res,next) {
 
 	newuser.save((err,doc) => {
 		if (!err) {
+			sendmessage("Hello " + req.body.name + ",\n", "You have selected " + req.body.prod + ".\n We will bring it to you as soon as we can!");
 			res.statusCode = 200;
 			res.setHeader('Content-Type', 'application/json');
 			res.json({success: true, status: 'Saved Successfully!'});
@@ -38,36 +51,31 @@ router.post('/', function(req,res,next) {
 
 })
 
-router.post('/message', function(req,res,next) {
-	var phone_number = req.body.mobile;
+// router.post('/message', function(req,res,next) {
+// 	var phone_number = req.body.mobile;
 
-	var flag = 0;
+// 	var flag = 0;
 
-	
-	axios.post('https://whatapi.onrender.com/chat/sendmessage/' + phone_number, {
-	message: req.body.message,
-	}).then(function(res1) {
-		console.log(res1);
-		flag  = 1;
-	}).catch(function(err) {
-		console.log(err);
-	})
 	
 
 	
 	
-	if (flag == 1) {
-		res.statusCode = 200;
-		res.setHeader('Content-Type', 'application/json');
-		res.json({success: true, status: 'Successfull!'});
-	}
-
-	else {
-		res.statusCode = 500;
-		res.setHeader('Content-Type', 'application/json');
-		res.json({err: "some error occured"});
-	}
 	
-})
+
+	
+	
+// 	if (flag == 1) {
+// 		res.statusCode = 200;
+// 		res.setHeader('Content-Type', 'application/json');
+// 		res.json({success: true, status: 'Successfull!'});
+// 	}
+
+// 	else {
+// 		res.statusCode = 500;
+// 		res.setHeader('Content-Type', 'application/json');
+// 		res.json({err: "some error occured"});
+// 	}
+	
+// })
 
 module.exports = router;
