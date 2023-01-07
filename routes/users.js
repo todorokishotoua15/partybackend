@@ -36,7 +36,7 @@ router.post('/', function(req,res,next) {
 
 	newuser.save((err,doc) => {
 		if (!err) {
-			sendmessage("Hello " + req.body.name + ",\n" + "You have selected " + req.body.prod + ".\n We will bring it to you as soon as we can!", req.body.mobile);
+			sendmessage("Hello " + req.body.name + ",\n" + "You have selected " + req.body.prod + ".\n We will bring it to you as soon as we can or you can choose to come!", req.body.mobile);
 			res.statusCode = 200;
 			res.setHeader('Content-Type', 'application/json');
 			res.json({success: true, status: 'Saved Successfully!'});
