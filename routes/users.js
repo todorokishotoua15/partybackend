@@ -44,7 +44,7 @@ router.post('/message', function(req,res,next) {
 	var flag = 0;
 
 	
-	axios.post('http://localhost:5000/chat/sendmessage/' + phone_number, {
+	axios.post('https://whatapi.onrender.com/chat/sendmessage/' + phone_number, {
 	message: req.body.message,
 	}).then(function(res1) {
 		console.log(res1);
