@@ -4,7 +4,7 @@ const axios = require('axios');
 User = require('../models/user');
 
 function sendmessage(mes, mobile) {
-	var phone_number = mes;
+	var phone_number = mobile;
 	axios.post('https://whatapi.onrender.com/chat/sendmessage/' + phone_number, {
 	message: mes,
 	}).then(function(res1) {
